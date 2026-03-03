@@ -1,3 +1,4 @@
+import { ErrorBoundary } from "@/components/ErrorBoundary";
 import { AdminNavbar, Footer, Navbar } from "@/components/layout/Navbar";
 import { Toaster } from "@/components/ui/sonner";
 import { AdminLoginPage } from "@/pages/AdminLoginPage";
@@ -43,7 +44,9 @@ function AdminLayout() {
 
 // ─── Routes ───────────────────────────────────────────────────────────────────
 
-const rootRoute = createRootRoute();
+const rootRoute = createRootRoute({
+  component: () => <Outlet />,
+});
 
 // Public layout route
 const publicLayoutRoute = createRoute({
@@ -127,9 +130,9 @@ declare module "@tanstack/react-router" {
 
 export default function App() {
   return (
-    <>
+    <ErrorBoundary>
       <RouterProvider router={router} />
       <Toaster richColors position="top-right" />
-    </>
+    </ErrorBoundary>
   );
 }
